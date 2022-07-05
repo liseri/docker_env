@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  sonar:
+    image: sonarqube:9.5.0-community
+    networks:
+      - sonarnet
+    environment:
+      - sonar.forceAuthentication=false
+      - sonar.sonar_jdbc_url=jdbc:postgresql://db:5432/sonar
+      - sonar_jdbc_username=sonar
+      - sonar_jdbc_password=sonar
+    volumes:
+      - '$SQ_HOME/extensions:/opt/sonarqube/extensions'
+      - '$SQ_HOME/logs:/opt/sonarqube/logs'
+      - '$SQ_HOME/data:/opt/sonarqube/data'
+    ports:
+      - 9001:9000
+
+  db:
+    image: postgres:14.4
+    networks:
+      - sonarnet
+    environment:
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+    volumes:
+      - $SQ_HOME/postgresql:/var/lib/postgresql
+      - $SQ_HOME/postgresql/data:/var/lib/postgresql/data
+
+networks:
+  sonarnet:
+    driver: bridge
+  

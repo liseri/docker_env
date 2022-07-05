@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  web:
+    image: portainer/portainer-ce:2.13.1
+    restart: always
+    environment:
+      TZ: 'Asia/Shanghai'
+    ports:
+      - '9000:8000'
+      - '9443:9443'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - '$PORTAINER_HOME/portainer_data:/data'
+
+# refer to: portainer.io

@@ -1,0 +1,31 @@
+version: '3.6'
+services:
+  web:
+    image: 'registry.gitlab.cn/omnibus/gitlab-jh:latest'
+    restart: always
+    hostname: 'gitlab.hk.com'
+    environment:
+      TZ: 'Asia/Shanghai'
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://gitlab.hk.com'
+        gitlab_rails['time_zone'] = 'Asia/Shanghai'
+        gitlab_rails['smtp_enable'] = true
+        # gitlab_rails['gitlab_shell_ssh_port'] = 22
+    ports:
+      - '8080:80'
+      - '8443:443'
+      - '8022:22'
+    volumes:
+      - '$GITLAB_HOME/config:/etc/gitlab'
+      - '$GITLAB_HOME/logs:/var/log/gitlab'
+      - '$GITLAB_HOME/data:/var/opt/gitlab'
+    shm_size: '256m'
+
+# #启动
+# docker-compose up -d
+# #查看日志
+# docker-compose logs -f
+
+#修改配置重新启动
+# gitlab-ctl reconfigure
+# gitlab-ctl restart
