@@ -21,11 +21,6 @@ services:
       - '$GITLAB_HOME/data:/var/opt/gitlab'
     shm_size: '256m'
 
-# #启动
-# docker-compose up -d
-# #查看日志
-# docker-compose logs -f
-
 #修改配置重新启动
 # gitlab-ctl reconfigure
 # gitlab-ctl restart
