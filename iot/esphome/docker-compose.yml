@@ -1,0 +1,13 @@
+version: '3'
+services:
+  homeassistant:
+    image: esphome/esphome
+    restart: always
+    privileged: true
+    volumes:
+      - $ESP_HOME/config:/config
+      - /etc/localtime:/etc/localtime:ro
+    network_mode: host
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+    
